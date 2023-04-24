@@ -1,11 +1,18 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const db = require("./models");
 
+dotenv.config();
 app.use(express.static("public"));
 app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use("/", userRoutes);
 
