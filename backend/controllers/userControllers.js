@@ -9,7 +9,6 @@ module.exports = {
       console.log("Start:", name, email, password);
       const userExists = await User.findOne({ where: { email } });
       if (userExists) {
-        res.status(400);
         res.json({
           message: "User Already exists",
         });
@@ -48,12 +47,10 @@ module.exports = {
         });
       } else {
         if (!user) {
-          res.status(403);
           res.json({
             message: "User does not exist!!!",
           });
         }
-        res.status(400);
         res.json({
           message: "Password Incorrect!!!",
         });
