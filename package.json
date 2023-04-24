@@ -1,0 +1,19 @@
+{
+  "name": "tl-fullstack--react-node-msql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bibinmthomas/TL-Fullstack--react-NODE-MSQL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bibinmthomas/TL-Fullstack--react-NODE-MSQL/issues"
+  },
+  "homepage": "https://github.com/bibinmthomas/TL-Fullstack--react-NODE-MSQL#readme"
+}
