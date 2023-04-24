@@ -9,7 +9,7 @@
   "scripts": {
 
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run":"node backend/server.js"
+    "run":"node backend/server.js",
     "start": "nodemon backend/server.js",
     "client": "cd .. && npm start --prefix frontend",
     "dev": "concurrently \"npm start\" \"npm run client\""
