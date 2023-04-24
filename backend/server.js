@@ -27,6 +27,11 @@ app.use("/", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-db.sequelize.sync().then((req) => {
-  app.listen(PORT, console.log(`Server started on port ${PORT}`));
-});
+db.sequelize
+  .sync()
+  .then((req) => {
+    app.listen(PORT, console.log(`Server started on port ${PORT}`));
+  })
+  .catch((error) => {
+    console.log("error:", error);
+  });
