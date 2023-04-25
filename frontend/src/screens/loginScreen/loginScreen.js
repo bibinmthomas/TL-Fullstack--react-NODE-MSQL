@@ -131,7 +131,7 @@ function LoginScreen() {
     <div
       className="relative lg:py-20 bg-no-repeat bg-center"
       style={{
-        height: window.innerWidth >= 480 ? "100vh" : "100%",
+        height: window.innerWidth >= 480 ? "100%" : "100%",
         backgroundImage: `url(/images/istockphoto-1278250468-1024x1024-transformed.jpeg)`,
         backgroundSize: "cover",
       }}
