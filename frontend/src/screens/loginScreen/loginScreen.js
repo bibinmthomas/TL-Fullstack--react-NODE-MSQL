@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import "./style.css";
 import { register, login } from "../../actions/userActions";
 import { userLoginSuccess } from "../../features/users/userLoginSlice";
 import { useNavigate } from "react-router-dom";
@@ -136,15 +136,16 @@ function LoginScreen() {
         // height: window.innerWidth >= 480 ? "100vh" : "100%",
         backgroundImage: `url(/images/istockphoto-1278250468-1024x1024-transformed.jpeg)`,
         backgroundSize: "cover",
-        backgroundPosition:"center center",
-        backgroundRepeat:"no-repeat",
-        height:"100%",
-        paddingBottom:"7.5rem"
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        height: "100%",
+        paddingBottom: "7.5rem",
       }}
     >
       <Toaster />
       {/* {errorRegister && toast(errorRegister)} */}
       {/* {error && toast(error)} */}
+      {/* {(loading || loadingRegister) && </> } */}
       <div
         className="flex flex-col items-center justify-between pt-0 pr-0 pb-0 pl-0 mt-0 mr-auto mb-0 ml-auto max-w-7xl
       xl:px-5 lg:flex-row"
@@ -215,11 +216,11 @@ function LoginScreen() {
                         onChange={(e) => setPassword(e.target.value)}
                         name="password"
                         placeholder="Enter Your Password"
-                        className="w-full px-4 mb-5 rounded border py-2"
+                        className="w-full px-4 mb-5 rounded border py-2 placeholder-gray-400 focus:outline-none focus:border-black"
                       />
                       <button
                         onClick={() => setShow(!show)}
-                        className="absolute inline-block bottom-7 right-5"
+                        className="absolute inline-block bottom-7 placeholder-gray-400 right-5 focus:outline-none focus:border-black  bg-white border-gray-300"
                       >
                         {!show ? (
                           <svg
@@ -278,7 +279,15 @@ function LoginScreen() {
                         onClick={submitHandler}
                         className="w-full inline-block px-4 py-2 mt-6 text-lg font-medium text-center text-white bg-sky-500 rounded-lg transition duration-200 hover:bg-sky-600 ease"
                       >
-                        Log In
+                        {loading || loadingRegister ? (
+                          <div class="load ml-32 justify-center items-center">
+                            <div class="progress"></div>
+                            <div class="progress"></div>
+                            <div class="progress"></div>
+                          </div>
+                        ) : (
+                          "Log In"
+                        )}
                       </button>
                     </div>
                   </div>
@@ -447,7 +456,15 @@ function LoginScreen() {
                         onClick={submitHandler}
                         className="w-full inline-block px-4 py-2 mt-0 text-lg font-medium text-center text-white bg-sky-500 rounded-lg transition duration-200 hover:bg-sky-600 ease"
                       >
-                        Continue
+                        {loading || loadingRegister ? (
+                          <div class="load ml-32 justify-center items-center">
+                            <div class="progress"></div>
+                            <div class="progress"></div>
+                            <div class="progress"></div>
+                          </div>
+                        ) : (
+                          "Continue"
+                        )}
                       </button>
                     </div>
                   </div>
