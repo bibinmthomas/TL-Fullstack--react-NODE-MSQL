@@ -39,17 +39,15 @@ function LoginScreen() {
     if (userInfo?.email) {
       navigate("/");
     }
-    // if (error) {
-    //   toast(error);
-    // }
-    // if (errorRegister) {
-    //   toast(errorRegister);
-    // }
   }, [userInfo, selected]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (email.length < 6) {
+    if (!email) {
+      toast("No email");
+    } else if (!password) {
+      toast("No password");
+    } else if (email.length < 6) {
       toast("Improper email");
     } else if (password.length < 6) {
       toast("Password length must be at least 6 characters long");
@@ -61,10 +59,14 @@ function LoginScreen() {
           toast.error(error);
         }
       } else {
-        console.log(name, email, password);
-        await dispatch(register(name, email, password));
-        if (errorRegister) {
-          toast.error(errorRegister);
+        if (password !== checkPassword) {
+          toast("Password and Re entered Password do not match");
+        } else {
+          console.log(name, email, password);
+          await dispatch(register(name, email, password));
+          if (errorRegister) {
+            toast.error(errorRegister);
+          }
         }
       }
     }
