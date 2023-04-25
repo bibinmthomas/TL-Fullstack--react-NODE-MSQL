@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
   GoogleAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
 import { authentication } from "../../firebase";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
@@ -48,17 +49,23 @@ function LoginScreen() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (selected) {
-      console.log(email, password);
-      await dispatch(login(email, password));
-      if (error) {
-        toast.error(error);
-      }
+    if (email.length < 6) {
+      toast("Improper email");
+    } else if (password.length < 6) {
+      toast("Password length must be at least 6 characters long");
     } else {
-      console.log(name, email, password);
-      await dispatch(register(name, email, password));
-      if (errorRegister) {
-        toast.error(errorRegister);
+      if (selected) {
+        console.log(email, password);
+        await dispatch(login(email, password));
+        if (error) {
+          toast.error(error);
+        }
+      } else {
+        console.log(name, email, password);
+        await dispatch(register(name, email, password));
+        if (errorRegister) {
+          toast.error(errorRegister);
+        }
       }
     }
   };
@@ -91,6 +98,25 @@ function LoginScreen() {
         console.log(error);
       });
   };
+  const signInWithGithub = async () => {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(authentication, provider)
+      .then((result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        let name = user.displayName;
+        let email = user.email;
+        dispatch(userLoginSuccess({ name, email }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const responseFacebook = (response) => {
     console.log("Log In:", response);
   };
@@ -105,7 +131,7 @@ function LoginScreen() {
     <div
       className="relative lg:py-20 bg-no-repeat bg-center"
       style={{
-        height: "100vh",
+        height: window.innerWidth >= 480 ? "100vh" : "100%",
         backgroundImage: `url(/images/istockphoto-1278250468-1024x1024-transformed.jpeg)`,
         backgroundSize: "cover",
       }}
@@ -121,7 +147,9 @@ function LoginScreen() {
           <div className="w-full bg-cover relative max-w-md lg:max-w-2xl lg:w-7/12">
             <div className="flex flex-col items-center justify-center w-full h-full relative lg:pr-10">
               {/* <img src="https://res.cloudinary.com/macxenon/image/upload/v1631570592/Run_-_Health_qcghbu.png" class="btn-"/> */}
-              <p className="text-6xl leading-none tracking-normal">Website Monitoring and performance testing solutions</p>
+              <p className="text-6xl leading-none tracking-normal">
+                Website Monitoring and performance testing solutions
+              </p>
             </div>
           </div>
           <div
@@ -469,6 +497,15 @@ function LoginScreen() {
                   <button className="mr-2" onClick={signInWithGoogle}>
                     <img
                       src="https://static.vecteezy.com/system/resources/previews/016/716/465/non_2x/gmail-icon-free-png.png"
+                      alt="email"
+                      border="0"
+                      height="30rem"
+                      width="40rem"
+                    />
+                  </button>
+                  <button className="mr-2" onClick={signInWithGithub}>
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                       alt="email"
                       border="0"
                       height="30rem"
